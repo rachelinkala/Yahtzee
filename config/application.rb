@@ -24,8 +24,8 @@ module Yahtzee
     config.middleware.insert_before 0, Rack::Cors do
       allow do
         origins '*'
-        resources '*',
-          methods: [:get, :post, :put, :delete]
+        resource '*',
+          methods: [:get, :post, :put, :delete],
           expose: ['access-token', 'client', 'uid', 'expiry']
       end
     end
