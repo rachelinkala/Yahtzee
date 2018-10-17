@@ -1,4 +1,4 @@
-const ROLL_DICE ='ROLL_DICE'
+const ROLL_DICE = 'ROLL_DICE'
 const TOGGLE_KEPT = 'TOGGLE_KEPT'
 
 export const rollDice = () => {
@@ -22,9 +22,9 @@ export const toggleKept = (i) => {
 
     if (keep.includes(i))
       updated = keep.filter( d => d !== i )
-    else 
+    else
       updated = [...keep, i]
-    
+
     dispatch({ type: TOGGLE_KEPT, keep: updated })
   }
 }
@@ -42,13 +42,13 @@ export default (
       return {
         ...state,
         dice: action.dice,
-        roll: state.roll
+        roll: state.roll + 1
       }
-    case TOGGLE_KEPT:
+    case TOGGLE_KEPT: 
       return {
         ...state,
         keep: action.keep
-      }  
+      }
     default:
       return state
   }

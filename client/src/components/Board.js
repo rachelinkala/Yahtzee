@@ -1,8 +1,15 @@
 import React from 'react'
 import { Grid, Button, Divider } from 'semantic-ui-react'
 import Dice from './Dice'
+import { connect } from 'react-redux'
+import { rollDice } from '../reducers/currentGame'
 
-const Board = ({ roll, dice, keep, rollDice, toggleKept, }) => {
+const Board = ({ 
+  roll, 
+  dice, 
+  keep,
+  dispatch,
+}) => {
   const maxRoll = roll === 3
   const disabled = maxRoll ? { disabled: true } : {}
   return (
@@ -10,7 +17,7 @@ const Board = ({ roll, dice, keep, rollDice, toggleKept, }) => {
       <Grid.Row>
         <Button
           fluid
-          onClick={rollDice}
+          onClick={() => dispatch(rollDice())}
           {...disabled}
         >
           Roll
@@ -26,10 +33,9 @@ const Board = ({ roll, dice, keep, rollDice, toggleKept, }) => {
                 key={i} 
                 value={d} 
                 kept={kept}
-                toggleKept={toggleKept}
                 index={i}
-              />
-            )
+              /> 
+            ) 
           })
         }
       </Grid.Row>
@@ -37,4 +43,13 @@ const Board = ({ roll, dice, keep, rollDice, toggleKept, }) => {
   )
 }
 
-export default Board
+const mapStateToProps = (state) => {
+  const { dice, keep, roll } = state.currentGame
+  return {
+    dice, 
+    keep,
+    roll,
+  }
+}
+
+export default connect(mapStateToProps)(Board)
